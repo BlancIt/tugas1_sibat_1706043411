@@ -20,7 +20,7 @@ public class ObatModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idObat;
 
 	@NotNull
 	@Size(max = 255)
@@ -69,11 +69,11 @@ public class ObatModel implements Serializable {
     private JenisModel jenis;
 
 	public Long getId() {
-		return id;
+		return idObat;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long idObat) {
+		this.idObat = idObat;
 	}
 
 	public String getNama() {

@@ -2,6 +2,7 @@ package apap.tugas.sibat.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import apap.tugas.sibat.model.*;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="obat")
@@ -53,8 +55,9 @@ public class ObatModel implements Serializable {
 	
 	@NotNull
 	@Column(name="tanggalTerbit", nullable = false)
-	@Temporal(TemporalType.DATE)
-    private Date tanggalTerbit;
+	//@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate tanggalTerbit;
 	
 	@OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ObatSupplierModel> obatSupplier;
@@ -124,11 +127,11 @@ public class ObatModel implements Serializable {
 		this.deskripsi = deskripsi;
 	}
 
-	public Date getTanggalTerbit() {
+	public LocalDate getTanggalTerbit() {
 		return tanggalTerbit;
 	}
 
-	public void setTanggalTerbit(Date tanggalTerbit) {
+	public void setTanggalTerbit(LocalDate tanggalTerbit) {
 		this.tanggalTerbit = tanggalTerbit;
 	}
 
@@ -154,5 +157,48 @@ public class ObatModel implements Serializable {
 
 	public void setJenis(JenisModel jenis) {
 		this.jenis = jenis;
+	}
+	
+	public void generateKode() {
+		String a = "";
+		if (this.getJenis().getNama().equals("Generik")) {
+			a += "1";
+		} else {
+			a += "2";
+		}
+		
+		if (this.getBentuk().equals("Cairan")) {
+			a += "01";
+		} else if (this.getBentuk().equals("Kapsul")) {
+			a += "02";
+		} else {
+			a += "03";
+		}
+		
+		a = a + this.getEnteredDate() + this.getTanggalTerbitInYearPlusFive() + this.randomCapitalLetter();
+		this.kode = a;
+	}
+	
+	public String getTanggalTerbitInYear() {
+		return Integer.toString(tanggalTerbit.getYear());
+	}
+	
+	public String getTanggalTerbitInYearPlusFive() {
+		return Integer.toString(tanggalTerbit.getYear() + 5);
+	}
+	
+	public String getEnteredDate() {
+		return Integer.toString(LocalDate.now().getYear());
+	}
+	
+	public String randomCapitalLetter() {
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder result = new StringBuilder(2); 
+
+		for (int i = 0; i < 2; i++) { 
+			int index = (int)(letters.length() * Math.random()); 
+			result.append(letters.charAt(index)); 
+		} 
+		return result.toString(); 
 	}
 }

@@ -38,6 +38,10 @@ public class ObatServiceImpl implements ObatService {
             return null;
         }
     }
+    
+    public  Optional<ObatModel> getObatByNomorRegistrasi(String nomorRegistrasi) {
+    	return obatDb.findByNomorRegistrasi(nomorRegistrasi);
+    }
 
     @Override
     // Need check

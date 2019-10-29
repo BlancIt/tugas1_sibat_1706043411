@@ -32,6 +32,25 @@ public class ObatController {
     	model.addAttribute("obatList", obatList);
         return "home";
     }
+    
+  //URL mapping view
+    @RequestMapping(path = "/obat/view", method = RequestMethod.GET)
+    public String view(
+        // Request Parameter untuk dipass
+        @RequestParam(value = "nomorRegistrasi") String nomorRegistrasi, Model model
+    ) {
+        try {
+            
+            ObatModel obat = obatService.getObatByNomorRegistrasi(nomorRegistrasi).get();
+            model.addAttribute("obat", obat);
+            model.addAttribute("gudangList", obat.getListGudang());
+
+            // Return view template
+            return "view-obat";
+        } catch (NoSuchElementException x) {
+            return "failed";
+        }
+    }
 }
 
     /*// URL mapping yang digunakan untuk mengakses halaman add obat

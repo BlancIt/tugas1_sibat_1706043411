@@ -13,6 +13,9 @@ public interface ObatService {
 
     // Method untuk mendapatkan data sebuah Obat berdasarkan idObat
     Optional<ObatModel> getObatByIdObat(Long idObat);
+    
+    // Method untuk mendapatkan data sebuah Obat berdasarkan nomorRegistrasi
+    Optional<ObatModel> getObatByNomorRegistrasi(String nomorRegistrasi);
 
     // Method untuk menghapus data sebuah Obat berdasarkan idObat
     boolean deleteObat(Long idObat);

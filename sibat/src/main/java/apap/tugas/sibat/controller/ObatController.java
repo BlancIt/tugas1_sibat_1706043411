@@ -27,20 +27,33 @@ public class ObatController {
     private ObatService obatService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET) 
-    public String home(Model model) {
+    public String home(@RequestParam(value = "nomorRegistrasi", required = false) Integer nomorRegistrasi, Model model) {
     	List<ObatModel> obatList = obatService.getObatList();
     	model.addAttribute("obatList", obatList);
         return "home";
     }
+}
 
-    // URL mapping yang digunakan untuk mengakses halaman add obat
+    /*// URL mapping yang digunakan untuk mengakses halaman add obat
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.GET)
     public String addObatFormPage(Model model) {
         ObatModel obat = new ObatModel();
-        List<SupplierModel> penyedia = obat.getSupplierObat();
+        List<SupplierModel> penyedia = obat.getListSupplier();
+        
+        
         
         model.addAttribute("obat", obat);
         return "form-add-obat";
+    }
+    
+    @RequestMapping(value="/obat/tambah}", params={"addRow"}, method = RequestMethod.POST)
+    public String addRow(SupplierModel supplier, ObatModel obat, BindingResult bindingResult, Model model) {
+        if (obat.getListSupplier() == null) {
+            restoran.setListMenu(new ArrayList<MenuModel>());
+        }
+        restoran.getListMenu().add(menu);
+        model.addAttribute("restoran", restoran);
+        return "form-add-menu";
     }
 
     //URL mapping yang digunakan untuk submit form yang telah anda masukkan pada halaman add obat
@@ -56,10 +69,10 @@ public class ObatController {
         model.addAttribute("tanggalTerbitObat", obat.getTanggalTerbit());
         model.addAttribute("tahun", obat.getTanggalTerbitInYear());
         model.addAttribute("abstrakObat", obat.getAbstrak());
-        model.addAttribute("statusObat", obat.getStatus());*/
+        model.addAttribute("statusObat", obat.getStatus());
         return "add-obat";
     }
-    /*
+    
     @RequestMapping(value = "/obat/tambah}", method = RequestMethod.GET)
     public String addProductFormPage(@PathVariable(value="idRestoran") Long idRestoran, Model model) {
         ArrayList<MenuModel> menu = new ArrayList<>();
@@ -69,7 +82,7 @@ public class ObatController {
 
         model.addAttribute("restoran", restoran);
         return "form-add-menu";
-    }
+    } 
 
     @RequestMapping(value="/obat/tambah}", params={"addRow"}, method = RequestMethod.POST)
     public String addRow(RestoranModel restoran, MenuModel menu, BindingResult bindingResult, Model model) {
@@ -113,7 +126,7 @@ public class ObatController {
         } catch (NoSuchElementException x) {
             return "failed";
         }
-    }*/
+    }
 
     @RequestMapping(path = "/obat/view-all")
     public String viewall(Model model) {
@@ -156,4 +169,3 @@ public class ObatController {
         }
         return "failedNoMenu";
     }*/
-}

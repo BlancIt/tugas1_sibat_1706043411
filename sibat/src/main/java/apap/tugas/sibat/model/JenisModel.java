@@ -27,8 +27,8 @@ public class JenisModel implements Serializable {
 
 	@NotNull
 	@Size(max = 255)
-	@Column(name="alamat", nullable = false)
-	private String alamat;
+	@Column(name="deskripsi", nullable = false)
+	private String deskripsi;
 
 	@OneToMany(mappedBy = "jenis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List <ObatModel> listObat;
@@ -49,12 +49,12 @@ public class JenisModel implements Serializable {
 		this.nama = nama;
 	}
 
-	public String getAlamat() {
-		return alamat;
+	public String getDeskripsi() {
+		return deskripsi;
 	}
 
-	public void setAlamat(String alamat) {
-		this.alamat = alamat;
+	public void setAlamat(String deskripsi) {
+		this.deskripsi = deskripsi;
 	}
 
 	public List<ObatModel> getListObat() {

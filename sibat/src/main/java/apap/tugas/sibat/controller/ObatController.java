@@ -27,7 +27,7 @@ public class ObatController {
     private ObatService obatService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET) 
-    public String home(@RequestParam(value = "nomorRegistrasi", required = false) Integer nomorRegistrasi, Model model) {
+    public String home(Model model) {
     	List<ObatModel> obatList = obatService.getObatList();
     	model.addAttribute("obatList", obatList);
         return "home";

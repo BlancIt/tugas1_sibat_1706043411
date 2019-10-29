@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+       <title id="pageTitle">View Obat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div style="text-align:center" class="container-fluid">
+        <br>
+            <h2>Detail Data Obat</h2></center>
+            <br>
+            <center><table class="table table-bordered" style="width:50%"></center>
+		  <tr>
+    <th>Kode</th>
+    <td th:text="${obat.kode}"></td>
+  </tr>
+  <tr>
+    <th>Nama</th>
+    <td th:text="${obat.nama}"></td>
+  </tr>
+  <tr>
+    <th>Nomor Registrasi</th>
+    <td th:text="${obat.nomorRegistrasi}"></td>
+  </tr>
+  <tr>
+    <th>Bentuk</th>
+    <td th:text="${obat.bentuk}"></td>
+  </tr>
+  <tr>
+    <th>Tanggal Terbit</th>
+    <td th:text="${obat.tanggalTerbit}"></td>
+  </tr>
+  <tr>
+    <th>Harga</th>
+    <td th:text="${#numbers.formatInteger(obat.harga,1)}"></td>
+  </tr>
+  <tr>
+    <th>Jenis Obat</th>
+    <td th:text="${obat.jenis.nama}"></td>
+  </tr>
+  <tr>
+    <th>Gudang Tempat Disimpan</th>
+    <td>
+    	<a th:each="gudang, iterationStatus : *{gudangList}">
+    		<a th:text="${gudang.nama} "></a>
+    		<br>
+    	</a>
+    </td>
+  </tr>
+  <tr>
+    <th>Supplier</th>
+    <td>
+    	<a th:each="supplier, iterationStatus : *{supplierList}">
+    		<a th:text="${supplier.nama} "></a>
+    		<br>
+    	</a>
+    </td>
+  </tr>
+  
+  
+		</table>
+        </div>
+    </body>
+</html>

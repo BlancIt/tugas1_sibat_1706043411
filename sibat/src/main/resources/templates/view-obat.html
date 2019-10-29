@@ -34,7 +34,7 @@
   </tr>
   <tr>
     <th>Harga</th>
-    <td th:text="${obat.harga}"></td>
+    <td th:text="${#numbers.formatInteger(obat.harga,1)}"></td>
   </tr>
   <tr>
     <th>Jenis Obat</th>

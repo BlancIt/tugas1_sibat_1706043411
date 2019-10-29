@@ -44,6 +44,7 @@ public class ObatController {
             ObatModel obat = obatService.getObatByNomorRegistrasi(nomorRegistrasi).get();
             model.addAttribute("obat", obat);
             model.addAttribute("gudangList", obat.getListGudang());
+            model.addAttribute("supplierList", obat.getListSupplier());
 
             // Return view template
             return "view-obat";

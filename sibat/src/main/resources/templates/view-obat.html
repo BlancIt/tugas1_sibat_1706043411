@@ -49,6 +49,16 @@
     	</a>
     </td>
   </tr>
+  <tr>
+    <th>Supplier</th>
+    <td>
+    	<a th:each="supplier, iterationStatus : *{supplierList}">
+    		<a th:text="${supplier.nama} "></a>
+    		<br>
+    	</a>
+    </td>
+  </tr>
+  
   
 		</table>
         </div>

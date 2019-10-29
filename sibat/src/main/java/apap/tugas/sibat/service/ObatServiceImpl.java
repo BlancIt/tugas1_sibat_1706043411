@@ -49,7 +49,7 @@ public class ObatServiceImpl implements ObatService {
     @Override
     public ObatModel updateObat(ObatModel obatModel) {
         // Mengambil object obat yang ingin diubah
-        ObatModel targetObat = obatDb.findById(obatModel.getId()).get();
+        ObatModel targetObat = obatDb.findById(obatModel.getIdObat()).get();
 
         try {
             targetObat.setNama(obatModel.getNama());

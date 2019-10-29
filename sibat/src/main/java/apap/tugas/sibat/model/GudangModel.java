@@ -29,9 +29,9 @@ public class GudangModel implements Serializable {
 	@Size(max = 255)
 	@Column(name="alamat", nullable = false)
 	private String alamat;
-
-	@OneToMany(mappedBy = "gudang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<GudangObatModel> gudangObat;
+	
+	@ManyToMany(mappedBy = "listGudang")
+	private List<ObatModel> listObat;
 
 	public Long getIdGudang() {
 		return idGudang;
@@ -57,11 +57,11 @@ public class GudangModel implements Serializable {
 		this.alamat = alamat;
 	}
 
-	public Set<GudangObatModel> getGudangObat() {
-		return gudangObat;
+	public List<ObatModel> getListObat() {
+		return listObat;
 	}
 
-	public void setGudangObat(Set<GudangObatModel> gudangObat) {
-		this.gudangObat = gudangObat;
+	public void setListObat(List<ObatModel> listObat) {
+		this.listObat = listObat;
 	}
 }

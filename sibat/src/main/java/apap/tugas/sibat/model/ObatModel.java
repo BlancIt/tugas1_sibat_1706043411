@@ -59,11 +59,19 @@ public class ObatModel implements Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate tanggalTerbit;
 	
-	@OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<ObatSupplierModel> obatSupplier;
-	 
-	@OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<GudangObatModel> gudangObat;
+	@ManyToMany
+	@JoinTable(
+	  name = "obat_supplier", 
+	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
+	  inverseJoinColumns = @JoinColumn(name = "supplierId", referencedColumnName = "idSupplier"))
+	private List<SupplierModel> listSupplier;
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "gudang_obat", 
+	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
+	  inverseJoinColumns = @JoinColumn(name = "gudangId", referencedColumnName = "idGudang"))
+	private List<GudangModel> listGudang;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "jenisId", referencedColumnName = "idJenis", nullable = false)
@@ -71,11 +79,11 @@ public class ObatModel implements Serializable {
     @JsonIgnore
     private JenisModel jenis;
 
-	public Long getId() {
+	public Long getIdObat() {
 		return idObat;
 	}
 
-	public void setId(Long idObat) {
+	public void setIdObat(Long idObat) {
 		this.idObat = idObat;
 	}
 
@@ -134,8 +142,10 @@ public class ObatModel implements Serializable {
 	public void setTanggalTerbit(LocalDate tanggalTerbit) {
 		this.tanggalTerbit = tanggalTerbit;
 	}
+	
+	
 
-	public Set<ObatSupplierModel> getObatSupplier() {
+	/*public Set<ObatSupplierModel> getObatSupplier() {
 		return obatSupplier;
 	}
 
@@ -149,6 +159,22 @@ public class ObatModel implements Serializable {
 
 	public void setGudangObat(Set<GudangObatModel> gudangObat) {
 		this.gudangObat = gudangObat;
+	}*/
+
+	public List<SupplierModel> getListSupplier() {
+		return listSupplier;
+	}
+
+	public void setListSupplier(List<SupplierModel> listSupplier) {
+		this.listSupplier = listSupplier;
+	}
+
+	public List<GudangModel> getListGudang() {
+		return listGudang;
+	}
+
+	public void setListGudang(List<GudangModel> listGudang) {
+		this.listGudang = listGudang;
 	}
 
 	public JenisModel getJenis() {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+   <head th:fragment="headerFragment">
+        <head th:fragment="css">
+            <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+            <img th:href="@{logo.png}" class="img-rounded" alt="Cinque Terre" />
+        </head>
+       
+        <head th:fragment="js">
+            <!-- jquery, ajax, and bootstrap.js -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script th:src="@{/js/bootstrap.min.js}"></script>
+        </head>
+        
+        <head th:fragment="datatable">
+        	<link rel="stylesheet" type="text/css" href="@{/DataTables/datatables.min.css}"/>
+			<script type="text/javascript" src="@{/DataTables/datatables.min.js}"></script>
+        </head>
+    </head>
+
+    <body>
+        <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- <a th:include=":: #pageTitle" class="navbar-brand">Navbar</a>-->
+            <a class="navbar-brand">SIBAT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" th:href="@{/gudang}">Gudang <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" th:href="@{/cari}">Cari<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" th:href="@{/filter}">Filter <span class="sr-only">(current)</span></a>
+                </div>
+            </div> 
+        </nav>
+    </body>
+    <footer th:fragment="footer" class="page-footer font-small blue pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+        
+            <!-- Grid row -->
+            <div class="row">
+        
+            <!-- Grid column -->
+           <div class="col-md-6 mt-md-0 mt-3">
+        
+                <!-- Content -->
+                <h5 class="text-uppercase">Footer Content</h5>
+                <center>
+                    <a>This is the footer of</a>
+                    <a th:include=":: #pageTitle">[]]</a>
+                    <a> page. <br>Made with love</a>
+                </center>
+            </div>
+        
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a> MHB</a>
+        </div>
+        <!-- Copyright -->
+        
+        </footer>
+    </div>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+        <title id ="pageTitle">Main Menu</title>
+
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Cari Gudang dengan Obat Expired</div>
+                        <div class="card-body">
+					    <form th:action="@{/gudang/expired-obat(idGudang=${chosenGudang.idGudang})}" th:object="${chosenGudang}" method="GET">
+						   	<select th:field="*{idGudang}">
+							    <option th:each="gudang : ${gudangList}" th:value="${gudang.idGudang}" th:text="${gudang.nama}"></option>
+						    </select>
+						    <button type="submit" class="btn btn-primary">Cari</button>
+						</form>
+					       </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    <br>
+    </body>
+</html>

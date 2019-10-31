@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+        <title id="pageTitle">Change Data Obat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="col-md-6"><h2>Ubah Data Obat</h2></div>
+        <form th:action="@{/obat/ubah(idObat=${obat.idObat})}" th:object="${obat}" method="POST">
+            <input type="hidden" th:field="${obat.idObat}"></input>
+            <div class="form-row col-lg-4">
+	            <div class="form-group col-md-6">
+				    <label for="namaField">Nama Obat</label>
+				    <input type="text" name="nama" class="form-control" id="namaField" th:value="${obat.nama}"></input>
+				</div>
+				<div class="form-group col-md-6">
+				    <label for="dateField">Tanggal Terbit</label>
+				    <input type="text" name="tanggalTerbit" class="form-control" id="dateField" th:value="${obat.tanggalTerbit}" placeholder="dd/MM/yyyy"></input>
+				</div>
+			</div>
+				<div class="form-group col-lg-3">
+				    <label for="hargaField">Harga</label>
+				    <input type="number" name="harga" class="form-control" id="hargaField" th:value="${obat.harga}"></input>
+				</div>
+				<div class="form-group col-lg-3">
+				    <label for="bentukField">Bentuk</label>
+				    <input type="text" name="bentuk" class="form-control" id="bentukField" th:value="${obat.bentuk}"  placeholder="Cairan/Kapsul/Tabel"></input>
+				</div>
+				<div class="form-group col-lg-3">
+				 <button class="btn btn-large btn-success" type="submit">Submit</button></div>
+            <!-- Nama Obat: <br>
+            <input type="text" name="nama" th:value="${obat.nama}"></input>
+            <br>
+            Tanggal Terbit: <br>
+            <input type="text" name="tanggalTerbit" th:value="${obat.tanggalTerbit}" placeholder="dd/MM/yyyy"></input>
+            <br>
+            Harga: <br>
+            <input type="number" name="harga" th:value="${obat.harga}"></input>
+            <br>
+            Bentuk: <br>
+            <input type="text" name="bentuk" th:value="${obat.bentuk}" placeholder="Cairan/Kapsul/Tabel"></input>
+            <br>&nbsp
+            <br><br>-->
+        </form>
+    </body>
+</html>

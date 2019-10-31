@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+        <title id ="pageTitle">Main Menu</title>
+
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Daftar Gudang</div>
+                        <div class="card-body">
+					                <table class="table table-striped" id="myTable">
+					                    <thead>
+					                        <tr>
+					                        	<th>No</th>
+					                            <th>Nama</th>
+					                            <th>Alamat</th>
+					                            <th>Action<th/>
+					                            
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+					                        <tr th:each="gudang, iterationStatus : *{gudangList}" th:style="${iterationStatus.even} ? 'color: blue'">
+					                            <td th:text="${iterationStatus.count}"></td>
+					                            <td th:text="${gudang.nama}"></td>
+					                            <td th:text="${gudang.alamat}"></td>
+					                          	<td>
+					                          	<div class="form-row col-lg-8">
+					                          	<div class="form-group col-md-3">
+					                        	<a th:href="@{/gudang/view(idGudang=${gudang.idGudang})}" class="btn btn-large btn-success">Lihat</a>
+					                        	</div>
+					                        	<div class="form-group col-md-3">
+					                        	<a th:href="@{/gudang/ubah}" class="btn btn-large btn-dark">Ubah</a></div>
+					                        	<form class="form-group col-md-3" th:action="@{/gudang/hapus/}+${gudang.idGudang}">
+					                        	<button class="btn btn-large btn-danger">Hapus</button></form>
+					                        	</div>
+					                        	</td>
+					                        	
+					                        </tr>
+					                    </tbody>
+
+					                </table>
+					                <a th:href="@{/gudang/tambah}" class="btn btn-large btn-dark" style="float:right">Tambah Gudang</a>
+					        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    <br>
+    </body>
+</html>

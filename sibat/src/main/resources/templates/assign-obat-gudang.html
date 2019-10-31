@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+    <title id="pageTitle">Assignment Obat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="col-md-8"><h2>Operasi berhasil! Obat telah di-assign ke gudang!</h2>
+        </div><br>
+        <center><div>
+        <a th:text="'Nama Obat ' + ${obat.nama}"></a><br>
+        <a th:text="'Nama Gudang ' + ${gudang.nama}"></a><br>
+        <a th:text="'Waktu Penambahan ' + ${#temporals.format(waktuPenambahan, 'HH:mm')}"></a></div></center>
+    </body>
+</html>

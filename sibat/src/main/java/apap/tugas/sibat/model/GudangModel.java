@@ -68,4 +68,8 @@ public class GudangModel implements Serializable {
 	public void setListObat(List<ObatModel> listObat) {
 		this.listObat = listObat;
 	}
+	
+	public void addObat(ObatModel obat) {
+		this.listObat.add(obat);
+	}
 }

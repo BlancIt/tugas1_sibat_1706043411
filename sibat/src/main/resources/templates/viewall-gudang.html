@@ -20,6 +20,7 @@
 					                <table class="table table-striped" id="myTable">
 					                    <thead>
 					                        <tr>
+					                        	<th>No</th>
 					                            <th>Nama</th>
 					                            <th>Alamat</th>
 					                            <th>Action<th/>
@@ -32,14 +33,22 @@
 					                            <td th:text="${gudang.nama}"></td>
 					                            <td th:text="${gudang.alamat}"></td>
 					                          	<td>
+					                          	<div class="form-row col-lg-8">
+					                          	<div class="form-group col-md-3">
 					                        	<a th:href="@{/gudang/view(idGudang=${gudang.idGudang})}" class="btn btn-large btn-success">Lihat</a>
-					                        	<a th:href="@{/gudang/ubah}" class="btn btn-large btn-dark">Ubah</a>
-					                        	<a href="/gudang/view" th:href="@{/gudang/view}" class="btn btn-large btn-danger">Hapus</a></td>
+					                        	</div>
+					                        	<div class="form-group col-md-3">
+					                        	<a th:href="@{/gudang/ubah}" class="btn btn-large btn-dark">Ubah</a></div>
+					                        	<form class="form-group col-md-3" th:action="@{/gudang/hapus/}+${gudang.idGudang}">
+					                        	<button class="btn btn-large btn-danger">Hapus</button></form>
+					                        	</div>
+					                        	</td>
+					                        	
 					                        </tr>
 					                    </tbody>
 
 					                </table>
-					                <a th:href="@{/gudang/add}" class="btn btn-large btn-dark" style="float:right">Tambah Gudang</a>
+					                <a th:href="@{/gudang/tambah}" class="btn btn-large btn-dark" style="float:right">Tambah Gudang</a>
 					        </div>
                         </div>
                     </div>

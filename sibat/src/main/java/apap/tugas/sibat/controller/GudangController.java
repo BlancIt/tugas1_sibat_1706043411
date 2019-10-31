@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import apap.tugas.sibat.model.*;
+import apap.tugas.sibat.repository.GudangDb;
 import apap.tugas.sibat.service.*;
 
 @Controller
@@ -65,13 +66,43 @@ public class GudangController {
 
         for (ObatModel find : obatInGudang) {
         	if (find.getIdObat().equals(obat.getIdObat())) {
-        		return "success";
+        		return "failed-assign-obat";
         	}
         }
         gudangService.assignObat(gudang, obat);
         model.addAttribute("gudang", gudang);
         return "assign-obat-gudang";
     }
+    
+    @RequestMapping(value = "/gudang/tambah", method = RequestMethod.GET)
+    public String addGudangFormPage(Model model) {
+        GudangModel gudang = new GudangModel();
+        model.addAttribute("gudang", gudang);
+        return "form-add-gudang";
+    }
+    
+    @RequestMapping(value = "/gudang/tambah", method = RequestMethod.POST)
+    public String addGudangFormPageSubmit(@ModelAttribute GudangModel gudang, Model model) {
+    	gudangService.addGudang(gudang);
+        model.addAttribute("gudang", gudang);
+        return "add-gudang";
+    }
+    
+    @RequestMapping(value = "/gudang/hapus/{idGudang}", method = RequestMethod.GET)
+    public String deleteGudang(@PathVariable Long idGudang,
+                                Model model) {
+    	GudangModel gudang = gudangService.getGudangByIdGudang(idGudang).get();
+        List<ObatModel> obatInGudang = gudang.getListObat();
+        for (ObatModel a : obatInGudang) {
+        System.out.println(a.getNama());
+        }
+        if (obatInGudang.size() == 0) {
+            gudangService.deleteGudang(idGudang);
+            return "success";
+        }
+        return "failed-hapus-gudang";
+    }
+    
 }
     
     /*@RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"save"})
@@ -106,10 +137,6 @@ public class GudangController {
     @RequestMapping(value = "/gudang/tambah", method = RequestMethod.GET)
     public String addGudangFormPage(Model model) {
         GudangModel gudang = new GudangModel();
-        List<SupplierModel> penyedia = gudang.getListSupplier();
-        
-        
-        
         model.addAttribute("gudang", gudang);
         return "form-add-gudang";
     }
@@ -151,16 +178,6 @@ public class GudangController {
         model.addAttribute("restoran", restoran);
         return "form-add-menu";
     } 
-
-    @RequestMapping(value="/gudang/tambah}", params={"addRow"}, method = RequestMethod.POST)
-    public String addRow(RestoranModel restoran, MenuModel menu, BindingResult bindingResult, Model model) {
-        if (restoran.getListMenu() == null) {
-            restoran.setListMenu(new ArrayList<MenuModel>());
-        }
-        restoran.getListMenu().add(menu);
-        model.addAttribute("restoran", restoran);
-        return "form-add-menu";
-    }
     
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"save"})
     private String addMenuSubmit(@ModelAttribute RestoranModel restoran, Model model) {

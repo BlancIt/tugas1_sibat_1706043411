@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+        <title id="pageTitle">Add Gudang</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="col-md-6"><h2>Tambah Gudang</h2></div>
+        <form th:action="@{/gudang/tambah}" th:object="${gudang}" method="POST">
+            <input type="hidden" th:field="${gudang.idGudang}"></input>
+            <div class="form-row col-lg-4">
+	            <div class="form-group col-md-6">
+				    <label for="namaField">Nama Gudang</label>
+				    <input type="text" name="nama" class="form-control" id="namaField" th:value="${gudang.nama}"></input>
+				</div>
+				<div class="form-group col-md-6">
+				    <label for="alamatField">Alamat</label>
+				    <input type="text" name="alamat" class="form-control" id="alamatField" th:value="${gudang.alamat}"></input>
+				</div>
+			</div>
+				<div class="form-group col-lg-3">
+				 <button class="btn btn-large btn-success" type="submit">Submit</button></div>
+            <!-- Nama Obat: <br>
+            <input type="text" name="nama" th:value="${obat.nama}"></input>
+            <br>
+            Tanggal Terbit: <br>
+            <input type="text" name="alamat" th:value="${obat.alamat}" placeholder="dd/MM/yyyy"></input>
+            <br>
+            Harga: <br>
+            <input type="number" name="harga" th:value="${obat.harga}"></input>
+            <br>
+            Bentuk: <br>
+            <input type="text" name="bentuk" th:value="${obat.bentuk}" placeholder="Cairan/Kapsul/Tabel"></input>
+            <br>&nbsp
+            <br><br>-->
+        </form>
+    </body>
+</html>

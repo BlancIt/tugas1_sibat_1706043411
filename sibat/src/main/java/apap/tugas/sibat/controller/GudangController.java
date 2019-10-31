@@ -38,6 +38,30 @@ public class GudangController {
         return "viewall-gudang";
     }
     
+    @RequestMapping(value = "/cari", method = RequestMethod.GET) 
+    public String cari(@ModelAttribute("GudangObat") GudangModel chosenGudang, Model model) {
+    	model.addAttribute("gudangList", gudangService.getGudangList());
+    	model.addAttribute("chosenGudang", chosenGudang);
+        return "cari";
+    }
+    
+    @RequestMapping(path="/gudang/expired-obat", method = RequestMethod.POST)
+    public String expiredObat(@RequestParam(value = "idGudang") Long idGudang, @ModelAttribute("chosenGudang") GudangModel chosenGudang, Model model) {
+    	GudangModel gudang = gudangService.getGudangByIdGudang(chosenGudang.getIdGudang()).get();
+        List<ObatModel> expired = new ArrayList<>();
+        List<ObatModel> obatInGudang = gudang.getListObat();
+
+        for (ObatModel find : obatInGudang) {
+        	if ((2019 - find.getTanggalTerbitInYearInt()) >= 5) {
+        		expired.add(find);
+        	}
+        }
+        model.addAttribute("gudang", gudang);
+        model.addAttribute("expired", expired);
+        return "expired-date-gudang";
+    }
+    
+    
   //URL mapping view
     @RequestMapping(path = "/gudang/view", method = RequestMethod.GET)
     public String view(

@@ -229,6 +229,10 @@ public class ObatModel implements Serializable {
 		return Integer.toString(tanggalTerbit.getYear());
 	}
 	
+	public Integer getTanggalTerbitInYearInt() {
+		return tanggalTerbit.getYear();
+	}
+	
 	public String getTanggalTerbitInYearPlusFive() {
 		return Integer.toString(tanggalTerbit.getYear() + 5);
 	}

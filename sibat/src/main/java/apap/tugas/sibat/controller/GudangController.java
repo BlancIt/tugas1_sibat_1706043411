@@ -1,5 +1,6 @@
 package apap.tugas.sibat.controller;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -70,7 +71,10 @@ public class GudangController {
         	}
         }
         gudangService.assignObat(gudang, obat);
+        obatService.assignObat(gudang, obat);
         model.addAttribute("gudang", gudang);
+        model.addAttribute("waktuPenambahan", LocalTime.now());
+        model.addAttribute("obat", obat);
         return "assign-obat-gudang";
     }
     

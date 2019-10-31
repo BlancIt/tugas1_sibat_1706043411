@@ -22,4 +22,6 @@ public interface ObatService {
     
     // Method untuk mengupdate data sebuah Obat berdasarkan idObat
     ObatModel updateObat(ObatModel obatModel);
+    
+    ObatModel assignObat(GudangModel gudangModel, ObatModel obatModel);
 }

@@ -62,15 +62,15 @@ public class ObatModel implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 	  name = "obat_supplier", 
-	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
-	  inverseJoinColumns = @JoinColumn(name = "supplierId", referencedColumnName = "idSupplier"))
+	  joinColumns = @JoinColumn(name = "obatId"), 
+	  inverseJoinColumns = @JoinColumn(name = "supplierId"))
 	private List<SupplierModel> listSupplier;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 	  name = "gudang_obat", 
-	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
-	  inverseJoinColumns = @JoinColumn(name = "gudangId", referencedColumnName = "idGudang"))
+	  joinColumns = @JoinColumn(name = "obatId"), 
+	  inverseJoinColumns = @JoinColumn(name = "gudangId"))
 	private List<GudangModel> listGudang;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)

@@ -69,25 +69,12 @@ public class GudangServiceImpl implements GudangService {
     
     @Override
     public GudangModel assignObat(GudangModel gudangModel, ObatModel obatModel) {
-    	GudangModel targetGudang = gudangDb.findByIdGudang(gudangModel.getIdGudang()).get();
+    	GudangModel targetGudang = gudangDb.findById(gudangModel.getIdGudang()).get();
     	List<ObatModel> obatInGudang = targetGudang.getListObat();
     	
-    	System.out.println("===================");
-    	System.out.println(targetGudang.getNama());
-    	System.out.println("BEFORE");
-    	for(ObatModel x : targetGudang.getListObat()) {
-    		System.out.print(x.getNama() + " ");	
-    	}
-    	System.out.println("\n====================");
-    	
-    	//obatInGudang.add(obatModel);
-    	//targetGudang.setListObat(obatInGudang);
-    	targetGudang.addObat(obatModel);
-    	System.out.println("AFTER");
-    	for(ObatModel x : targetGudang.getListObat()) {
-    		System.out.print(x.getNama() + " ");	
-    	}
-    	System.out.println("\nXXXXX");
+    	obatInGudang.add(obatModel);
+    	targetGudang.setListObat(obatInGudang);
+    	//targetGudang.addObat(obatModel);
     	
     	gudangDb.save(targetGudang);
     	return targetGudang;

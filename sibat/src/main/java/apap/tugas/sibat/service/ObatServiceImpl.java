@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import apap.tugas.sibat.model.GudangModel;
 import apap.tugas.sibat.model.ObatModel;
 import apap.tugas.sibat.repository.ObatDb;
 
@@ -67,4 +68,18 @@ public class ObatServiceImpl implements ObatService {
             return null;
         }
     }
+    
+    @Override
+    public ObatModel assignObat(GudangModel gudangModel, ObatModel obatModel) {
+    	ObatModel targetObat = obatDb.findById(obatModel.getIdObat()).get();
+    	List<GudangModel> gudangInObat = targetObat.getListGudang();
+    	
+    	
+    	gudangInObat.add(gudangModel);
+    	targetObat.setListGudang(gudangInObat);
+    	
+    	obatDb.save(targetObat);
+    	return targetObat;
+    }
+    
 }

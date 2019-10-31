@@ -7,6 +7,11 @@
     </head>
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
-        <div class="col-md-6"><h2>Operasi berhasil(?)</h2></div><br>
+        <div class="col-md-8"><h2>Operasi berhasil! Obat telah di-assign ke gudang!</h2>
+        </div><br>
+        <center><div>
+        <a th:text="'Nama Obat ' + ${obat.nama}"></a><br>
+        <a th:text="'Nama Gudang ' + ${gudang.nama}"></a><br>
+        <a th:text="'Waktu Penambahan ' + ${#temporals.format(waktuPenambahan, 'HH:mm')}"></a></div></center>
     </body>
 </html>

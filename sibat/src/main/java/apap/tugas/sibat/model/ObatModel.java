@@ -59,14 +59,14 @@ public class ObatModel implements Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate tanggalTerbit;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 	  name = "obat_supplier", 
 	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
 	  inverseJoinColumns = @JoinColumn(name = "supplierId", referencedColumnName = "idSupplier"))
 	private List<SupplierModel> listSupplier;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 	  name = "gudang_obat", 
 	  joinColumns = @JoinColumn(name = "obatId",  referencedColumnName = "idObat"), 
@@ -203,6 +203,26 @@ public class ObatModel implements Serializable {
 		
 		a = a + this.getEnteredDate() + this.getTanggalTerbitInYearPlusFive() + this.randomCapitalLetter();
 		this.kode = a;
+	}
+	
+	public String showKode() {
+		String a = "";
+		if (this.getJenis().getNama().equals("Generik")) {
+			a += "1";
+		} else {
+			a += "2";
+		}
+		
+		if (this.getBentuk().equals("Cairan")) {
+			a += "01";
+		} else if (this.getBentuk().equals("Kapsul")) {
+			a += "02";
+		} else {
+			a += "03";
+		}
+		
+		a = a + this.getEnteredDate() + this.getTanggalTerbitInYearPlusFive() + this.randomCapitalLetter();
+		return a;
 	}
 	
 	public String getTanggalTerbitInYear() {

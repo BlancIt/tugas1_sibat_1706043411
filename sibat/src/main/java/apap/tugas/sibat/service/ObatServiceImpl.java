@@ -60,6 +60,7 @@ public class ObatServiceImpl implements ObatService {
             targetObat.setTanggalTerbit(obatModel.getTanggalTerbit());
             targetObat.setHarga(obatModel.getHarga());
             targetObat.setBentuk(obatModel.getBentuk());
+            targetObat.generateKode();
             obatDb.save(targetObat);
             return targetObat;
         } catch (NullPointerException nullException) {

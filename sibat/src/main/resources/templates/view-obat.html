@@ -30,11 +30,11 @@
   </tr>
   <tr>
     <th>Tanggal Terbit</th>
-    <td th:text="${obat.tanggalTerbit}"></td>
+    <td th:text= "${#temporals.format(obat.tanggalTerbit, 'dd-MM-yyyy')}"></td>
   </tr>
   <tr>
     <th>Harga</th>
-    <td th:text="${#numbers.formatInteger(obat.harga,1)}"></td>
+    <td th:text="'Rp ' + ${#numbers.formatInteger(obat.harga,1)}"></td>
   </tr>
   <tr>
     <th>Jenis Obat</th>

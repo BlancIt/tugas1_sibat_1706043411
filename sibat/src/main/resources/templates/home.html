@@ -35,10 +35,10 @@
 					                            <td th:text="${obat.kode}"></td>
 					                            <td th:text="${obat.nama}"></td>
 					                           
-					                            <td th:text="${#numbers.formatInteger(obat.harga, 1)}"></td>
+					                            <td th:text="'Rp '+ ${#numbers.formatInteger(obat.harga, 1)}"></td>
 					                        	<td>
 					                        	<a th:href="@{/obat/view(nomorRegistrasi=${obat.nomorRegistrasi})}" class="btn btn-large btn-success">Lihat</a>
-					                        	<a th:href="@{/obat/ubah}" class="btn btn-large btn-dark">Ubah</a>
+					                        	<a th:href="@{/obat/ubah(idObat=${obat.idObat})}" class="btn btn-large btn-dark">Ubah</a>
 					                        	<a href="/obat/view" th:href="@{/obat/view}" class="btn btn-large btn-danger">Hapus</a></td>
 					                        </tr>
 					                    </tbody>

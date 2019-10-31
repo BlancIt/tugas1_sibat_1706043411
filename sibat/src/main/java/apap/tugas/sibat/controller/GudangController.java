@@ -25,6 +25,9 @@ public class GudangController {
     @Qualifier("gudangServiceImpl")
     @Autowired
     private GudangService gudangService;
+    
+    @Autowired
+    private ObatService obatService;
 
     @RequestMapping(value = "/gudang", method = RequestMethod.GET) 
     public String home(Model model) {
@@ -37,22 +40,67 @@ public class GudangController {
     @RequestMapping(path = "/gudang/view", method = RequestMethod.GET)
     public String view(
         // Request Parameter untuk dipass
-        @RequestParam(value = "nomorRegistrasi") Long idGudang, Model model
+        @RequestParam(value = "idGudang") Long idGudang, @ModelAttribute("chosenObat") ObatModel chosenObat,  Model model
     ) {
         try {
-            
             GudangModel gudang = gudangService.getGudangByIdGudang(idGudang).get();
+            List<ObatModel> obatAvailable = obatService.getObatList();
             model.addAttribute("gudang", gudang);
+            model.addAttribute("chosenObat", chosenObat);
             model.addAttribute("obatList", gudang.getListObat());
-
-
+            model.addAttribute("jumlahObat", gudang.getJumlahObat());
+            model.addAttribute("obatAvailable", obatAvailable);
             // Return view template
             return "view-gudang";
         } catch (NoSuchElementException x) {
             return "failed";
         }
     }
+    
+    @RequestMapping(path="/gudang/tambah-obat", method = RequestMethod.POST)
+    public String assignObat(@RequestParam(value = "idGudang") Long idGudang, @ModelAttribute("chosenObat") ObatModel chosenObat, Model model) {
+    	GudangModel gudang = gudangService.getGudangByIdGudang(idGudang).get();
+        ObatModel obat = obatService.getObatByIdObat(chosenObat.getIdObat()).get();
+        List<ObatModel> obatInGudang = gudang.getListObat();
+
+        for (ObatModel find : obatInGudang) {
+        	if (find.getIdObat().equals(obat.getIdObat())) {
+        		return "success";
+        	}
+        }
+        gudangService.assignObat(gudang, obat);
+        model.addAttribute("gudang", gudang);
+        return "assign-obat-gudang";
+    }
 }
+    
+    /*@RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"save"})
+    private String addMenuSubmit(@ModelAttribute RestoranModel restoran, Model model) {
+        RestoranModel archive = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran()).get();
+        for (MenuModel menu : restoran.getListMenu()) {
+            menu.setRestoran(archive);
+            menuService.addMenu(menu);
+        }
+        return "add-menu";
+    }
+    
+    @RequestMapping(path="/gudang/tambah-obat", method = RequestMethod.POST)
+    public String assignObat(@ModelAttribute GudangModel gudang, Long idObat, Model model) {
+        if (gudang.getListObat() == null) {
+            gudang.setListObat(new ArrayList<ObatModel>());
+        }
+        
+        List<ObatModel> obatInGudang = gudang.getListObat();
+        for (ObatModel find : obatInGudang) {
+        	if (find.getIdObat().equals(idObat)) {
+        		return "success";
+        	}
+        }
+        ObatModel obatFound = obatService.getObatByIdObat(idObat).get();
+        gudang.getListObat().add(obatFound);
+        model.addAttribute("gudang", gudang);
+        return "assign-obat-gudang";
+    }*/
 
     /*// URL mapping yang digunakan untuk mengakses halaman add gudang
     @RequestMapping(value = "/gudang/tambah", method = RequestMethod.GET)

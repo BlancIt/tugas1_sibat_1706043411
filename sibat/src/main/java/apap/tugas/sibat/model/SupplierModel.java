@@ -36,7 +36,7 @@ public class SupplierModel implements Serializable {
 	@Column(name="nomorTelepon", nullable = false)
 	private Long nomorTelepon;
 	
-	@ManyToMany(mappedBy = "listSupplier")
+	@ManyToMany(mappedBy = "listSupplier", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<ObatModel> listObat;
 
 	public Long getIdSupplier() {

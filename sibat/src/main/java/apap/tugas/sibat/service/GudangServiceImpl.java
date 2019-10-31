@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import apap.tugas.sibat.model.GudangModel;
+import apap.tugas.sibat.model.ObatModel;
 import apap.tugas.sibat.repository.GudangDb;
+import apap.tugas.sibat.repository.ObatDb;
 
 @Service
 @Transactional
@@ -18,6 +20,10 @@ import apap.tugas.sibat.repository.GudangDb;
 public class GudangServiceImpl implements GudangService {
     @Autowired
     private GudangDb gudangDb;
+    
+    @Autowired
+    private ObatDb obatDb;
+
 
     @Override
     public void addGudang(GudangModel gudang) {
@@ -59,5 +65,29 @@ public class GudangServiceImpl implements GudangService {
         } catch (NullPointerException nullException) {
             return null;
         }
+    }
+    
+    @Override
+    public GudangModel assignObat(GudangModel gudangModel, ObatModel obatModel) {
+    	GudangModel targetGudang = gudangDb.findByIdGudang(gudangModel.getIdGudang()).get();
+    	List<ObatModel> obatInGudang = targetGudang.getListObat();
+    	
+    	System.out.println("===================");
+    	System.out.println(targetGudang.getNama());
+    	for(ObatModel x : targetGudang.getListObat()) {
+    		System.out.print(x.getNama() + " ");	
+    	}
+    	System.out.println("====================");
+    	
+    	obatInGudang.add(obatModel);
+    	targetGudang.setListObat(obatInGudang);
+    	
+    	for(ObatModel x : targetGudang.getListObat()) {
+    		System.out.print(x.getNama() + " ");	
+    	}
+    	System.out.println("\nXXXXX");
+    	
+    	gudangDb.save(targetGudang);
+    	return targetGudang;
     }
 }

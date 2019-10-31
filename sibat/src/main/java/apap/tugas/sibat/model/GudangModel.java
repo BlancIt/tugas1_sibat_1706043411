@@ -30,7 +30,7 @@ public class GudangModel implements Serializable {
 	@Column(name="alamat", nullable = false)
 	private String alamat;
 	
-	@ManyToMany(mappedBy = "listGudang")
+	@ManyToMany(mappedBy = "listGudang", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<ObatModel> listObat;
 
 	public Long getIdGudang() {
@@ -59,6 +59,10 @@ public class GudangModel implements Serializable {
 
 	public List<ObatModel> getListObat() {
 		return listObat;
+	}
+	
+	public Integer getJumlahObat() {
+		return listObat.size();
 	}
 
 	public void setListObat(List<ObatModel> listObat) {

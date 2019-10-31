@@ -19,4 +19,6 @@ public interface GudangService {
     
     // Method untuk mengupdate data sebuah Gudang berdasarkan idGudang
     GudangModel updateGudang(GudangModel gudangModel);
+    
+    GudangModel assignObat(GudangModel gudangModel, ObatModel obatModel);
 }

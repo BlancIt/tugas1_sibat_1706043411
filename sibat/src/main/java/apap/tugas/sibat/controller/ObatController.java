@@ -25,6 +25,10 @@ public class ObatController {
     @Qualifier("obatServiceImpl")
     @Autowired
     private ObatService obatService;
+    
+    @Qualifier("gudangServiceImpl")
+    @Autowired
+    private GudangService gudangService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET) 
     public String home(Model model) {
@@ -45,6 +49,7 @@ public class ObatController {
             model.addAttribute("obat", obat);
             model.addAttribute("gudangList", obat.getListGudang());
             model.addAttribute("supplierList", obat.getListSupplier());
+            model.addAttribute("theKode", obat.showKode());
 
             // Return view template
             return "view-obat";
@@ -52,6 +57,27 @@ public class ObatController {
             return "failed";
         }
     }
+    
+    @RequestMapping(path = "/obat/ubah", method = RequestMethod.GET)
+    public String updateObatForm(
+        // Request Parameter untuk dipass
+        @RequestParam(value = "idObat") Long idObat, Model model) {
+        try {
+            ObatModel obat = obatService.getObatByIdObat(idObat).get();
+            model.addAttribute("obat", obat);
+            return "form-update-obat";
+        } catch (NoSuchElementException x) {
+            return "failed";
+        }
+    }
+    
+    @RequestMapping(path = "/obat/ubah", method = RequestMethod.POST)
+    public String updateObatFormSubmit(@RequestParam(value = "idObat") Long idObat, @ModelAttribute ObatModel obat, Model model) {
+        ObatModel newObatData = obatService.updateObat(obat);
+        model.addAttribute("obat", newObatData);
+        return "update-obat";
+    }
+    
 }
 
     /*// URL mapping yang digunakan untuk mengakses halaman add obat
